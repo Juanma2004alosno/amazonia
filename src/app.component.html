@@ -1,0 +1,51 @@
+
+<div class="flex flex-col min-h-screen font-sans text-gray-900">
+  <app-header class="sticky top-0 z-40"></app-header>
+  
+  <main class="flex-grow">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="bg-amazon-light text-white mt-auto">
+    <div class="bg-amazon-light/80 hover:bg-amazon-light/70 text-center py-4 text-sm cursor-pointer transition-colors" (click)="scrollToTop()">
+      Inicio de página
+    </div>
+    
+    <div class="max-w-[1000px] mx-auto py-10 px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+       <div class="flex flex-col gap-2">
+         <h3 class="font-bold text-base mb-2">Conócenos</h3>
+         <a href="#" class="hover:underline text-gray-300">Trabajar en Amazonia</a>
+         <a href="#" class="hover:underline text-gray-300">Información corporativa</a>
+         <a href="#" class="hover:underline text-gray-300">Departamento de prensa</a>
+       </div>
+       <div class="flex flex-col gap-2">
+         <h3 class="font-bold text-base mb-2">Gana dinero con nosotros</h3>
+         <a href="#" class="hover:underline text-gray-300">Vender en Amazonia</a>
+         <a href="#" class="hover:underline text-gray-300">Suministro para empresas</a>
+         <a href="#" class="hover:underline text-gray-300">Programa de afiliados</a>
+       </div>
+       <div class="flex flex-col gap-2">
+         <h3 class="font-bold text-base mb-2">Métodos de pago</h3>
+         <a href="#" class="hover:underline text-gray-300">Tarjetas de crédito</a>
+         <a href="#" class="hover:underline text-gray-300">Tarjetas de regalo</a>
+         <a href="#" class="hover:underline text-gray-300">Meses sin intereses</a>
+       </div>
+       <div class="flex flex-col gap-2">
+         <h3 class="font-bold text-base mb-2">Podemos ayudarte</h3>
+         <a href="#" class="hover:underline text-gray-300">Rastrear pedido</a>
+         <a href="#" class="hover:underline text-gray-300">Devoluciones</a>
+         <a href="#" class="hover:underline text-gray-300">Ayuda</a>
+       </div>
+    </div>
+
+    <div class="border-t border-gray-600 py-8 text-center text-xs text-gray-300">
+       <div class="flex justify-center gap-4 mb-2">
+          <span>Condiciones de uso</span>
+          <span>Aviso de privacidad</span>
+          <span>Ayuda</span>
+          <span>Cookies</span>
+       </div>
+       <p>&copy; 1996-2023, Amazonia.es, Inc. o sus afiliados</p>
+    </div>
+  </footer>
+</div>
