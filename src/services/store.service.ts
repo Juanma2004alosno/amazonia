@@ -20,6 +20,7 @@ export interface CartItem extends Product {
 
 export interface Order {
   id: string;
+  userEmail: string; // Added user association
   date: Date;
   items: CartItem[];
   total: number;
@@ -158,13 +159,14 @@ export class StoreService {
   );
 
   constructor() {
-    // Add a mock past order for demonstration
+    // Add a mock past order for demonstration attached to juanma@gmail.com
     this.addMockOrder();
   }
 
   private addMockOrder() {
     const mockOrder: Order = {
       id: '405-1234567-8901234',
+      userEmail: 'juanma@gmail.com', // Assigned to example user
       date: new Date(Date.now() - 86400000 * 5), // 5 days ago
       items: [this.MOCK_PRODUCTS[0] as CartItem],
       total: 249.99,
@@ -220,9 +222,10 @@ export class StoreService {
 
   // --- Order Management ---
 
-  createOrder(items: CartItem[], total: number) {
+  createOrder(items: CartItem[], total: number, userEmail: string) {
     const newOrder: Order = {
       id: `405-${Math.floor(Math.random() * 10000000)}-${Math.floor(Math.random() * 10000000)}`,
+      userEmail: userEmail,
       date: new Date(),
       items: [...items], // Copy items
       total: total,

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../services/store.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -41,7 +42,7 @@ import { StoreService } from '../services/store.service';
                   <div class="grid grid-cols-1 gap-4">
                      <div>
                         <label class="block text-sm font-bold mb-1">Nombre completo</label>
-                        <input type="text" class="w-full bg-white text-black border border-gray-400 rounded px-2 py-1 focus:ring-amazon-orange focus:border-amazon-orange">
+                        <input type="text" class="w-full bg-white text-black border border-gray-400 rounded px-2 py-1 focus:ring-amazon-orange focus:border-amazon-orange" [value]="auth.currentUser()?.name || ''">
                      </div>
                      <div>
                         <label class="block text-sm font-bold mb-1">Dirección</label>
@@ -91,7 +92,7 @@ import { StoreService } from '../services/store.service';
                      </div>
                      <div>
                         <label class="block text-sm font-bold mb-1">Nombre en la tarjeta</label>
-                        <input type="text" class="w-full bg-white text-black border border-gray-400 rounded px-2 py-1 focus:ring-amazon-orange focus:border-amazon-orange">
+                        <input type="text" class="w-full bg-white text-black border border-gray-400 rounded px-2 py-1 focus:ring-amazon-orange focus:border-amazon-orange" [value]="auth.currentUser()?.name || ''">
                      </div>
                      <div>
                         <label class="block text-sm font-bold mb-1">Fecha de vencimiento</label>
@@ -180,6 +181,7 @@ import { StoreService } from '../services/store.service';
 export class CheckoutComponent {
   store = inject(StoreService);
   router = inject(Router);
+  auth = inject(AuthService);
   currentStep = signal(1);
 
   nextStep() {
@@ -187,12 +189,21 @@ export class CheckoutComponent {
   }
 
   placeOrder() {
+    const user = this.auth.currentUser();
+
+    if (!user) {
+      // Force login if not authenticated
+      alert('Por favor, inicia sesión para completar tu pedido.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
     // Capture data before clearing
     const items = this.store.cart();
     const total = this.store.cartTotal();
     
-    // Save order
-    this.store.createOrder(items, total);
+    // Save order with user email
+    this.store.createOrder(items, total, user.email);
     
     // Clear cart and redirect
     this.store.clearCart();
