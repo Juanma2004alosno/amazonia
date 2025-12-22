@@ -63,7 +63,7 @@ import { AiService } from '../services/ai.service';
                 [(ngModel)]="currentInput" 
                 (keyup.enter)="sendMessage()"
                 placeholder="Escribe tu consulta..."
-                class="flex-grow border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-amazon-orange focus:ring-1 focus:ring-amazon-orange"
+                class="flex-grow border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-amazon-orange focus:ring-1 focus:ring-amazon-orange bg-white text-black"
                 [disabled]="isLoading()"
               >
               <button 

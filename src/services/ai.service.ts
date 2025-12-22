@@ -16,7 +16,8 @@ export class AiService {
 
   async askAssistant(userQuery: string): Promise<string> {
     const products = this.storeService.products();
-    const productCatalog = products.map(p => `- ${p.title} (ID: ${p.id}, Precio: $${p.price}, Categ: ${p.category})`).join('\n');
+    // Context with Euro symbol
+    const productCatalog = products.map(p => `- ${p.title} (ID: ${p.id}, Precio: ${p.price}€, Categ: ${p.category})`).join('\n');
 
     const prompt = `
       Actúa como un asistente de ventas experto de Amazonia.
@@ -28,7 +29,7 @@ export class AiService {
       Instrucciones:
       1. Recomienda productos del catálogo que coincidan con la solicitud.
       2. Sé amable, conciso y útil.
-      3. Si recomiendas un producto, menciona su precio.
+      3. IMPORTANTE: Menciona los precios SIEMPRE en Euros (€).
       4. Si no hay nada exacto, sugiere algo similar del catálogo.
       5. Responde en español.
       6. Mantén la respuesta breve (máximo 3 párrafos).
