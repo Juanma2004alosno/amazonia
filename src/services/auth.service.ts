@@ -19,13 +19,11 @@ export class AuthService {
   login(email: string, pass: string): boolean {
     // Mock login logic
     if (email && pass) {
-      // Extract name from email for demo purposes if not a specific mock account
       const name = email.split('@')[0];
       this.currentUser.set({
         name: name.charAt(0).toUpperCase() + name.slice(1),
         email: email
       });
-      this.router.navigate(['/']);
       return true;
     }
     return false;
@@ -34,7 +32,6 @@ export class AuthService {
   register(name: string, email: string, pass: string): boolean {
     if (name && email && pass) {
       this.currentUser.set({ name, email });
-      this.router.navigate(['/']);
       return true;
     }
     return false;

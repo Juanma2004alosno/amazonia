@@ -192,9 +192,8 @@ export class CheckoutComponent {
     const user = this.auth.currentUser();
 
     if (!user) {
-      // Force login if not authenticated
-      alert('Por favor, inicia sesión para completar tu pedido.');
-      this.router.navigate(['/login']);
+      // Professional redirection: save return URL
+      this.router.navigate(['/login'], { queryParams: { returnUrl: '/checkout' }});
       return;
     }
 

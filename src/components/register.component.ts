@@ -2,7 +2,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -78,6 +78,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
   auth = inject(AuthService);
+  router = inject(Router);
   name = '';
   email = '';
   password = '';
@@ -85,7 +86,9 @@ export class RegisterComponent {
 
   onRegister() {
     if (this.password === this.confirmPassword) {
-      this.auth.register(this.name, this.email, this.password);
+      if(this.auth.register(this.name, this.email, this.password)) {
+        this.router.navigate(['/']);
+      }
     } else {
       alert('Las contraseñas no coinciden');
     }

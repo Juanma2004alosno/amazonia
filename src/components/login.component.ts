@@ -2,7 +2,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -78,10 +78,20 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   auth = inject(AuthService);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  
   email = '';
   password = '';
 
   onLogin() {
-    this.auth.login(this.email, this.password);
+    if (this.auth.login(this.email, this.password)) {
+      // Professional Redirect: Check if there is a returnUrl
+      const params = this.route.snapshot.queryParams;
+      const returnUrl = params['returnUrl'] || '/';
+      this.router.navigateByUrl(returnUrl);
+    } else {
+      alert('Credenciales inválidas. Por favor intenta de nuevo.');
+    }
   }
 }

@@ -18,5 +18,7 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'order-confirmation', component: OrderSuccessComponent },
   { path: 'orders', component: MyOrdersComponent },
+  // Redirect auth-account to orders as a dashboard placeholder
+  { path: 'auth-account', redirectTo: 'orders', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

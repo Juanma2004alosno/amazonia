@@ -124,6 +124,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
+      window.scrollTo(0, 0); // Force scroll to top
       const id = params.get('id');
       if (id) {
         this.product.set(this.store.getProductById(id));
